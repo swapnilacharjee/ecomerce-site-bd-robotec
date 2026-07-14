@@ -1,0 +1,66 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Robotic component in inventory register",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique component ID" },
+        "name": { "type": "string", "description": "Component Name" },
+        "sku": { "type": "string", "description": "Stock Keeping Unit identifier" },
+        "category": { "type": "string", "description": "Category classification" },
+        "description": { "type": "string", "description": "Short description of the component" },
+        "price": { "type": "number", "description": "Retail price in USD" },
+        "image": { "type": "string", "description": "Product image URL" },
+        "specs": { "type": "array", "description": "Technical specifications" }
+      },
+      "required": ["id", "name", "sku", "category", "price", "image", "specs"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile database entry",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "name": { "type": "string", "description": "Full name of the user" },
+        "email": { "type": "string", "description": "Email address" },
+        "role": { "type": "string", "description": "Access level role" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Order database record details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique order ID" },
+        "userId": { "type": "string", "description": "Auth User ID who placed the order" },
+        "userEmail": { "type": "string", "description": "Auth User email" },
+        "customerName": { "type": "string", "description": "Name of the customer" },
+        "customerPhone": { "type": "string", "description": "Contact number of the customer" },
+        "deliveryLocation": { "type": "string", "description": "Delivery address" },
+        "items": { "type": "array", "description": "List of ordered items" },
+        "subtotal": { "type": "number", "description": "Subtotal before discount" },
+        "discount": { "type": "number", "description": "Discount amount" },
+        "total": { "type": "number", "description": "Total paid amount" },
+        "createdAt": { "type": "string", "description": "ISO format order placing timestamp" },
+        "status": { "type": "string", "description": "State status of the order" }
+      },
+      "required": ["id", "userId", "userEmail", "customerName", "customerPhone", "deliveryLocation", "items", "subtotal", "discount", "total", "createdAt", "status"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Collection of robotic components and schematics in inventory"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of user metadata accounts"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of orders placed by customers"
+    }
+  }
+}

@@ -1,0 +1,166 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      // Admin is designated by their specific email address and verification
+      return isSignedIn() && (
+        request.auth.token.email == "swapnilacharjee2003@gmail.com" || 
+        request.auth.token.email == "2023100000622@seu.edu.bd"
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Products Schema Validation
+    function isValidProduct(prod) {
+      return prod.id is string && prod.id.size() <= 128
+          && prod.name is string && prod.name.size() <= 150
+          && prod.sku is string && prod.sku.size() <= 50
+          && prod.category is string && prod.category.size() <= 50
+          && prod.description is string && prod.description.size() <= 1000
+          && prod.price is number && prod.price >= 0
+          && prod.image is string && prod.image.size() <= 1000
+          && prod.specs is list;
+    }
+
+    // Users Schema Validation
+    function isValidUser(usr) {
+      return usr.uid is string && usr.uid.size() <= 128
+          && usr.name is string && usr.name.size() <= 100
+          && usr.email is string && usr.email.size() <= 150
+          && usr.role is string && usr.role.size() <= 50;
+    }
+
+    // Promos Schema Validation
+    function isValidPromo(promo) {
+      return promo.code is string && promo.code.size() <= 50
+          && promo.discount is number && promo.discount >= 0 && promo.discount <= 100
+          && (!('isPublic' in promo) || (promo.isPublic is bool));
+    }
+
+    // Certificates Schema Validation
+    function isValidCertificate(cert) {
+      return cert.id is string && cert.id.size() <= 128
+          && cert.title is string && cert.title.size() <= 200
+          && cert.pic is string && cert.pic.size() <= 1000
+          && cert.address is string && cert.address.size() <= 500;
+    }
+
+    // Banners Schema Validation
+    function isValidBanner(banner) {
+      return banner.id is string && banner.id.size() <= 128
+          && banner.title is string && banner.title.size() <= 200
+          && banner.description is string && banner.description.size() <= 1000
+          && banner.image is string && banner.image.size() <= 1000
+          && (!('badge' in banner) || (banner.badge is string && banner.badge.size() <= 150))
+          && (!('gradientText' in banner) || (banner.gradientText is string && banner.gradientText.size() <= 150))
+          && (!('buttonText' in banner) || (banner.buttonText is string && banner.buttonText.size() <= 100))
+          && (!('caption' in banner) || (banner.caption is string && banner.caption.size() <= 200));
+    }
+
+    // Brand Settings Schema Validation
+    function isValidBrandSettings(settings) {
+      return settings.name is string && settings.name.size() <= 100
+          && (!('logoUrl' in settings) || (settings.logoUrl is string && settings.logoUrl.size() <= 1000))
+          && (!('logoType' in settings) || (settings.logoType is string && settings.logoType.size() <= 50))
+          && (!('showName' in settings) || (settings.showName is bool));
+    }
+
+    // Orders Schema Validation
+    function isValidOrder(ord) {
+      return ord.id is string && ord.id.size() <= 128
+          && ord.userId is string && ord.userId.size() <= 128
+          && ord.userEmail is string && ord.userEmail.size() <= 150
+          && ord.customerName is string && ord.customerName.size() <= 150
+          && ord.customerPhone is string && ord.customerPhone.size() <= 50
+          && ord.deliveryLocation is string && ord.deliveryLocation.size() <= 1000
+          && ord.items is list
+          && ord.subtotal is number && ord.subtotal >= 0
+          && ord.discount is number && ord.discount >= 0
+          && ord.total is number && ord.total >= 0
+          && ord.createdAt is string && ord.createdAt.size() <= 100
+          && ord.status is string && ord.status.size() <= 50;
+    }
+
+    // Products collection:
+    // Anyone can read (get/list) products. Only Admins can write (create/update/delete).
+    match /products/{productId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidProduct(request.resource.data);
+      allow update: if isAdmin() && isValidProduct(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Users collection:
+    // Users can read/write their own details. Admins can read all.
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId) && isValidUser(request.resource.data);
+      allow update: if isOwner(userId) && isValidUser(request.resource.data)
+                    && request.resource.data.role == resource.data.role; // can't self-promote role
+      allow delete: if isAdmin();
+    }
+
+    // Promos collection:
+    // Anyone can read promo codes to apply them. Only Admins can manage them.
+    match /promos/{promoId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidPromo(request.resource.data);
+      allow update: if isAdmin() && isValidPromo(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Certificates collection:
+    // Anyone can read (get/list) certificates. Only Admins can write (create/update/delete).
+    match /certificates/{certificateId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidCertificate(request.resource.data);
+      allow update: if isAdmin() && isValidCertificate(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Banners collection:
+    // Anyone can read (get/list) banners. Only Admins can write (create/update/delete).
+    match /banners/{bannerId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidBanner(request.resource.data);
+      allow update: if isAdmin() && isValidBanner(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Brand Config collection:
+    // Anyone can read (get/list) brand settings. Only Admins can write (create/update/delete).
+    match /brand_config/{configId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidBrandSettings(request.resource.data);
+      allow update: if isAdmin() && isValidBrandSettings(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    // Orders collection:
+    // Users can read and write (create) their own orders. Admins can read, update, and delete.
+    match /orders/{orderId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid && isValidOrder(request.resource.data);
+      allow update: if isAdmin() && isValidOrder(request.resource.data);
+      allow delete: if isAdmin();
+    }
+  }
+}

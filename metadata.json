@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Remix: BD Robotec",
+  "description": "Premium Electronics and Robotic Components in Bangladesh",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
