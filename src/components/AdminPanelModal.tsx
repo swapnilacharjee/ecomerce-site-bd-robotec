@@ -503,6 +503,7 @@ export default function AdminPanelModal({
 
   const handleEditProduct = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("handleEditProduct called");
     setError("");
     setSuccess("");
 
