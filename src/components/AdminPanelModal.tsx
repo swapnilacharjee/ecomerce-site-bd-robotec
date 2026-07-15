@@ -513,7 +513,6 @@ export default function AdminPanelModal({
     if (!price || isNaN(Number(price)) || Number(price) <= 0) {
       return setError("Please enter a valid positive price.");
     }
-
     let finalCategory = category;
     if (isCustomCategory) {
       if (!customCategoryInput.trim()) {
@@ -546,6 +545,7 @@ export default function AdminPanelModal({
     };
 
     const updated = products.map((p) => (p.id === editingProduct.id ? updatedProduct : p));
+    console.log("calling onUpdateProducts with", updated.length, "products");
     onUpdateProducts(updated);
     setSuccess("Product details updated successfully!");
 
