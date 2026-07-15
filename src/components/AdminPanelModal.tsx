@@ -273,7 +273,7 @@ export default function AdminPanelModal({
 
   // Reset states on activeTab change
   useEffect(() => {
-    setEditingProduct(null);
+    if (activeTab !== "edit") setEditingProduct(null);
     setEditingCertificate(null);
     setEditingBanner(null);
     setNewCertTitle("");
