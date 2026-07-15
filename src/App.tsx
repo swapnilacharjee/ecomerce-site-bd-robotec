@@ -437,6 +437,7 @@ export default function App() {
 
     // Sync to Firestore database
     try {
+      console.log("Syncing to Firestore...");
       // Find deleted products
       const deleted = prevProducts.filter((p) => !updatedProducts.some((up) => up.id === p.id));
       for (const prod of deleted) {
@@ -447,8 +448,9 @@ export default function App() {
       for (const prod of updatedProducts) {
         await setDoc(doc(db, "products", prod.id), prod);
       }
+      console.log("Firestore sync success!");
     } catch (err) {
-      console.error("Error syncing product updates to Firestore:", err);
+      console.error("Firestore sync error:", err);
       throw err;
     }
   };
