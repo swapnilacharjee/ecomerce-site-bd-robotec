@@ -110,6 +110,12 @@ function getSmartFallbackReply(message: string): string {
   return reply;
 }
 
+// Google Search Console verification
+app.get("/google02546065fd539c65.html", (req, res) => {
+  res.type("text/html");
+  res.send("google-site-verification: google02546065fd539c65.html");
+});
+
 // POST /api/chat
 app.post("/api/chat", async (req, res) => {
   const { message, history } = req.body;
