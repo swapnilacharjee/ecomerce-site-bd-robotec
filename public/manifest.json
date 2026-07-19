@@ -1,0 +1,18 @@
+{
+  "name": "BD Robotec - Electronic Components",
+  "short_name": "BD Robotec",
+  "description": "Bangladesh's trusted supplier of premium electronic components",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#040e1f",
+  "theme_color": "#00dbe7",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

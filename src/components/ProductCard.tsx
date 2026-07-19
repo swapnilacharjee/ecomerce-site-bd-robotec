@@ -32,6 +32,8 @@ export default function ProductCard({
           src={product.image}
           alt={product.name}
           referrerPolicy="no-referrer"
+          loading="lazy"
+          decoding="async"
           className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500"
         />
         
