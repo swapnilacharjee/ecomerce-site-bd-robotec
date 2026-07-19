@@ -1,9 +1,7 @@
 {
   "buildCommand": "vite build",
   "outputDirectory": "dist",
-  "routes": [
-    { "src": "/google02546065fd539c65.html", "dest": "/google02546065fd539c65.html" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/((?!google02546065fd539c65\\.html|assets/).*)", "destination": "/index.html" }
   ]
 }
