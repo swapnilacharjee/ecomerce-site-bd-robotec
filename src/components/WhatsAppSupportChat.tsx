@@ -1,8 +1,14 @@
 import { useState, useRef, useEffect } from "react";
-import { MessageSquare, Send, X, Bot, ShieldAlert, Cpu } from "lucide-react";
+import { MessageSquare, Send, X, Bot, ShieldAlert, Cpu, Sun, Moon } from "lucide-react";
 import { ChatMessage } from "../types";
 
+function getAutoTheme(): "dark" | "light" {
+  const hour = new Date().getHours();
+  return hour >= 6 && hour < 18 ? "light" : "dark";
+}
+
 export default function WhatsAppSupportChat() {
+  const [theme, setTheme] = useState<"dark" | "light">(getAutoTheme);
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -15,6 +21,10 @@ export default function WhatsAppSupportChat() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
   // Auto scroll to bottom on message update
   useEffect(() => {
@@ -89,7 +99,21 @@ export default function WhatsAppSupportChat() {
   ];
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 max-w-[calc(100vw-32px)]">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 max-w-[calc(100vw-32px)] flex flex-col items-end gap-3">
+
+      {/* Theme Toggle Button */}
+      <button
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-105 active:scale-95 cursor-pointer border"
+        style={{
+          backgroundColor: theme === "dark" ? "#1f2a3c" : "#f4f4f5",
+          borderColor: theme === "dark" ? "#3f3f46" : "#d4d4d8",
+          color: theme === "dark" ? "#ffffff" : "#09090b",
+        }}
+        title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+      >
+        {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+      </button>
       
       {/* Floating Action Button */}
       {!isOpen && (
