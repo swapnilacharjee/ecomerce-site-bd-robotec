@@ -242,6 +242,18 @@ export default function Navbar({
             <Search className="w-4 h-4" />
           </button>
 
+          {/* Admin Panel Quick Access - visible only for admin */}
+          {activeUser && (activeUser.email.toLowerCase() === "swapnilacharjee2003@gmail.com" || activeUser.email.toLowerCase() === "2023100000622@seu.edu.bd") && (
+            <button
+              onClick={onOpenAdminPanel}
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-[#c3f400]/10 hover:bg-[#c3f400]/20 border border-[#c3f400]/40 text-[#c3f400] rounded text-[10px] font-space font-bold uppercase tracking-wider transition-all cursor-pointer"
+              title="Open Admin Panel"
+            >
+              <Settings className="w-3.5 h-3.5 animate-spin" />
+              Admin Panel
+            </button>
+          )}
+
           {/* Contact support trigger */}
           <button
             onClick={onOpenContact}

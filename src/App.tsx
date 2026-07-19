@@ -127,10 +127,18 @@ export default function App() {
   }, []);
 
   // Auto-open login modal on startup if guest user
+  // Auto-open admin panel if admin logs in
   useEffect(() => {
     if (authChecked && !activeUser && !hasAutoOpenedLogin) {
       setIsUserModalOpen(true);
       setHasAutoOpenedLogin(true);
+    }
+    if (authChecked && activeUser) {
+      const email = activeUser.email.toLowerCase();
+      const isAdmin = email === "swapnilacharjee2003@gmail.com" || email === "2023100000622@seu.edu.bd";
+      if (isAdmin && !isAdminModalOpen && !hasAutoOpenedLogin) {
+        setIsAdminModalOpen(true);
+      }
     }
   }, [authChecked, activeUser, hasAutoOpenedLogin]);
 
