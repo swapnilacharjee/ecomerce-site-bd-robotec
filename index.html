@@ -14,6 +14,67 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://robotecbd.vercel.app/" />
 
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "BD Robotec",
+      "url": "https://robotecbd.vercel.app",
+      "description": "Bangladesh's trusted supplier of premium electronic components — Arduino, ESP32, Servo Motors, LiDAR Sensors and more.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "BD"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Electronic Components",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Arduino Uno R3",
+              "sku": "MCU-001",
+              "description": "Original ATmega328P Rev3. The standard for rapid prototyping and educational robotics.",
+              "offers": { "@type": "Offer", "price": "3000", "priceCurrency": "BDT" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Servo Motor MG996R",
+              "sku": "ACT-996",
+              "description": "Torque: 10kg-cm. Precision metal gears for high-stress mechanical automation.",
+              "offers": { "@type": "Offer", "price": "1500", "priceCurrency": "BDT" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "ESP32 DevKit V1",
+              "sku": "IOT-032",
+              "description": "Dual-Core Wi-Fi + Bluetooth. Low-power IoT solution for connected devices.",
+              "offers": { "@type": "Offer", "price": "1070", "priceCurrency": "BDT" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Lidar Sensor TF-Luna",
+              "sku": "SNR-TF1",
+              "description": "Range: 8m. ToF technology for high-precision distance measuring and obstacle avoidance.",
+              "offers": { "@type": "Offer", "price": "4680", "priceCurrency": "BDT" }
+            }
+          }
+        ]
+      }
+    }
+    </script>
+
     <!-- Open Graph (Facebook, WhatsApp) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://robotecbd.vercel.app/" />
