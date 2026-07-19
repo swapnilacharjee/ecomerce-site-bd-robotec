@@ -144,35 +144,53 @@ button.cursor-pointer, a.cursor-pointer { border-radius: 6px !important; }
 
 /* ===== LIGHT THEME ===== */
 [data-theme="light"] body {
-  background-color: #f4f4f5 !important;
+  background-color: #f8fafc !important;
   color: #09090b !important;
 }
 
-[data-theme="light"] .glass-card {
-  background: #ffffff !important;
-  border-color: #e4e4e7 !important;
-}
-[data-theme="light"] .glass-card:hover {
-  border-color: #a1a1aa !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+/* All text becomes dark in light mode */
+[data-theme="light"] * {
+  color: #09090b !important;
+  border-color: #e2e8f0 !important;
 }
 
-[data-theme="light"] header {
-  background-color: rgba(255,255,255,0.92) !important;
-  border-color: #e4e4e7 !important;
+/* Exceptions - keep white text on dark buttons */
+[data-theme="light"] button.bg-\[\#0266ff\],
+[data-theme="light"] .bg-\[\#0266ff\] * {
+  color: #ffffff !important;
 }
 
-[data-theme="light"] .bg-\[\#030712\]\/80,
-[data-theme="light"] .bg-\[\#111c2d\],
-[data-theme="light"] .bg-\[\#111c2d\]\/95,
-[data-theme="light"] .bg-\[\#111c2d\]\/90,
-[data-theme="light"] .bg-\[\#111c2d\]\/85,
-[data-theme="light"] .bg-\[\#081425\],
+/* Backgrounds */
+[data-theme="light"] body,
+[data-theme="light"] .bg-\[\#030712\],
 [data-theme="light"] .bg-\[\#040e1f\],
+[data-theme="light"] .bg-\[\#09090b\] {
+  background-color: #f8fafc !important;
+}
+
+[data-theme="light"] header,
+[data-theme="light"] .bg-\[\#030712\]\/80 {
+  background-color: rgba(255,255,255,0.95) !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .glass-card,
+[data-theme="light"] .bg-\[\#111c2d\],
+[data-theme="light"] .bg-\[\#081425\],
 [data-theme="light"] .bg-\[\#1f2a3c\],
 [data-theme="light"] .bg-\[\#152031\],
-[data-theme="light"] .bg-\[\#0b1524\] {
+[data-theme="light"] .bg-\[\#0b1524\],
+[data-theme="light"] .bg-\[\#152238\] {
   background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .glass-card {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+}
+[data-theme="light"] .glass-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1) !important;
+  border-color: #cbd5e1 !important;
 }
 
 [data-theme="light"] .bg-\[\#081425\]\/50,
@@ -180,47 +198,32 @@ button.cursor-pointer, a.cursor-pointer { border-radius: 6px !important; }
 [data-theme="light"] .bg-\[\#081425\]\/90,
 [data-theme="light"] .bg-\[\#040e1f\]\/50,
 [data-theme="light"] .bg-\[\#040e1f\]\/70,
-[data-theme="light"] .bg-\[\#040e1f\]\/80 {
-  background-color: rgba(244,244,245,0.95) !important;
+[data-theme="light"] .bg-\[\#040e1f\]\/80,
+[data-theme="light"] .bg-\[\#111c2d\]\/95,
+[data-theme="light"] .bg-\[\#111c2d\]\/90,
+[data-theme="light"] .bg-\[\#111c2d\]\/85 {
+  background-color: rgba(248,250,252,0.97) !important;
 }
 
-[data-theme="light"] .text-white { color: #09090b !important; }
-
-[data-theme="light"] .text-\[\#d8e3fb\],
-[data-theme="light"] .text-\[\#d8e3fb\]\/85,
-[data-theme="light"] .text-\[\#d8e3fb\]\/80,
-[data-theme="light"] .text-\[\#d8e3fb\]\/75,
-[data-theme="light"] .text-\[\#d8e3fb\]\/70 { color: #18181b !important; }
-
-[data-theme="light"] .text-\[\#d8e3fb\]\/60,
-[data-theme="light"] .text-\[\#d8e3fb\]\/50,
-[data-theme="light"] .text-\[\#d8e3fb\]\/40 { color: #52525b !important; }
-
-[data-theme="light"] .border-white\/10,
-[data-theme="light"] .border-white\/5 { border-color: #e4e4e7 !important; }
-
 [data-theme="light"] footer {
-  background-color: #e4e4e7 !important;
-  border-color: #d4d4d8 !important;
+  background-color: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
 }
 
 [data-theme="light"] input,
 [data-theme="light"] textarea {
-  background-color: #f4f4f5 !important;
+  background-color: #ffffff !important;
   color: #09090b !important;
-  border-color: #d4d4d8 !important;
-}
-
-[data-theme="light"] .whatsapp-pulse {
-  background-color: #09090b !important;
-  color: #ffffff !important;
+  border-color: #cbd5e1 !important;
 }
 
 [data-theme="light"] .bg-\[\#0266ff\] {
   background-color: #09090b !important;
-  color: #ffffff !important;
 }
 [data-theme="light"] .hover\:bg-\[\#0266ff\]\/85:hover {
   background-color: #27272a !important;
-  color: #ffffff !important;
+}
+
+[data-theme="light"] .whatsapp-pulse {
+  background-color: #09090b !important;
 }
