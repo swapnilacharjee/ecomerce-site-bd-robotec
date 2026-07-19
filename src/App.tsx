@@ -64,6 +64,7 @@ export default function App() {
   const [isQAModalOpen, setIsQAModalOpen] = useState(false);
 
   const [products, setProducts] = useState<Product[]>(PRODUCTS);
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [promoCodes, setPromoCodes] = useState<PromoCode[]>([]);
   const [banners, setBanners] = useState<Banner[]>([]);
   const [brandSettings, setBrandSettings] = useState<BrandSettings>({
@@ -144,6 +145,7 @@ export default function App() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setIsLoadingProducts(true);
         const querySnapshot = await getDocs(collection(db, "products"));
         setDbError(null);
         if (!querySnapshot.empty) {
@@ -197,6 +199,8 @@ export default function App() {
         } else {
           setProducts(PRODUCTS);
         }
+      } finally {
+        setIsLoadingProducts(false);
       }
     };
     fetchProducts();
@@ -545,6 +549,7 @@ export default function App() {
           searchTerm={searchTerm}
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
+          isLoading={isLoadingProducts}
         />
 
         {/* Technical Specs & Wholesale & Bulk Supply Asymmetric Bento Block */}

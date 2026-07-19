@@ -2,6 +2,7 @@ import React from "react";
 import { Filter, Grid } from "lucide-react";
 import { Product } from "../types";
 import ProductCard from "./ProductCard";
+import ProductSkeleton from "./ProductSkeleton";
 
 interface ProductGridProps {
   products: Product[];
@@ -10,6 +11,7 @@ interface ProductGridProps {
   searchTerm: string;
   activeCategory: string;
   setActiveCategory: (category: string) => void;
+  isLoading?: boolean;
 }
 
 export default function ProductGrid({
@@ -19,6 +21,7 @@ export default function ProductGrid({
   searchTerm,
   activeCategory,
   setActiveCategory,
+  isLoading = false,
 }: ProductGridProps) {
   
   // Filtering logic combined (search & category)
@@ -86,7 +89,11 @@ export default function ProductGrid({
       </div>
 
       {/* Grid Items Display */}
-      {filteredProducts.length > 0 ? (
+      {isLoading ? (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+          {Array.from({ length: 4 }).map((_, i) => <ProductSkeleton key={i} />)}
+        </div>
+      ) : filteredProducts.length > 0 ? (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 animate-in fade-in duration-500">
           {filteredProducts.map((product) => (
             <ProductCard
