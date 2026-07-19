@@ -93,13 +93,13 @@ export default function Hero({ banners = [] }: HeroProps) {
         </div>
 
         {/* Hero Image / Visualization with Hover Glow */}
-        <div className="flex-1 w-full h-[180px] sm:h-[240px] md:h-[400px] rounded-lg md:rounded-xl overflow-hidden relative glass-card group shadow-2xl">
-          <div 
-            className="w-full h-full bg-cover bg-center opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
-            style={{ 
-              backgroundImage: `url('${activeBanner.image}')` 
-            }}
+        <div className="flex-1 w-full h-[200px] sm:h-[260px] md:h-[400px] rounded-lg md:rounded-xl overflow-hidden relative glass-card group shadow-2xl shrink-0">
+          <img
+            src={activeBanner.image}
+            alt={activeBanner.caption || "BD Robotec"}
             referrerPolicy="no-referrer"
+            loading="lazy"
+            className="w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out"
           />
           
           {/* Futuristic glowing overlay HUD */}
